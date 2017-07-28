@@ -1,7 +1,14 @@
 language: ruby
 before_script:
-  - gem install jekyll
-  - gem install percy-cli
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then gem install jekyll; fi' 
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then gem install percy-cli; fi' 
 script:
-  - jekyll build
-  - percy snapshot ./
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then jekyll build; fi' 
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then percy snapshot ./; fi' 
+
+
+notifications:
+  email:
+    recipients:
+      - mplaisted@businessink.com
+    on_success: always
